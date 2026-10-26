@@ -93,3 +93,19 @@ Example:
 git log --oneline
 git show <commit-id>
 ```
+## 8. Staging Area
+
+The **staging area**, also called the **index**, holds the changes selected for the next commit.
+
+- The working tree contains the files you edit.
+- `git add` stages selected changes.
+- `git commit` records the staged state.
+
+Example:
+
+```bash
+echo "Staging example" > staging.txt
+git status
+git add staging.txt
+git status
+git commit -m "Add staging example"
