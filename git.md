@@ -125,6 +125,15 @@ git commit -m "Add staging example"
 - Lets developers exchange commits and collaborate.
 - Is accessed through a remote name and URL, commonly `origin`.
 
-Examples:
+
+## 10. Git Installation and Configuration
+
+### Install on Ubuntu / Debian
+
+```bash
+sudo apt update
+sudo apt install git -y
+git --version
+```
 
 
