@@ -64,3 +64,15 @@ View commit IDs:
 git log --oneline
 git rev-parse HEAD
 ```
+
+## 6. Advantages of Git
+
+1. **Change history:** Inspect previous commits and changes.
+2. **Branching:** Work on separate features and fixes.
+3. **Collaboration:** Exchange changes with other developers.
+4. **Offline work:** Commit locally without always connecting to a server.
+5. **Comparison:** Review differences between versions.
+6. **Recovery:** Restore earlier states or reverse changes.
+7. **Code review:** Use branches and hosting platforms to propose changes.
+8. **CI/CD integration:** Connect repositories to automated build and deployment pipelines.
+9. **Distributed design:** Each clone normally has its own repository history.
