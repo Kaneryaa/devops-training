@@ -76,3 +76,20 @@ git rev-parse HEAD
 7. **Code review:** Use branches and hosting platforms to propose changes.
 8. **CI/CD integration:** Connect repositories to automated build and deployment pipelines.
 9. **Distributed design:** Each clone normally has its own repository history.
+
+
+## 7. Git Snapshots
+
+A **snapshot** represents the project state recorded by a commit.
+
+- A commit records the state of the files tracked by Git at that point.
+- Commits are connected through parent references to form history.
+- Git can reuse unchanged file content internally instead of storing a completely separate full copy for every commit.
+- Snapshots make it possible to compare and inspect earlier project states.
+
+Example:
+
+```bash
+git log --oneline
+git show <commit-id>
+```
