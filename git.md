@@ -136,4 +136,136 @@ sudo apt install git -y
 git --version
 ```
 
+## 11. `git add`
+
+Stages selected changes so they can be included in the next commit.
+
+```bash
+git add README.md
+git add .
+```
+
+- `git add README.md` stages changes to the named file.
+- `git add .` stages changes under the current directory within the repository.
+- Check the staged changes with `git status` before committing.
+
+## 12. `git commit`
+
+Records the staged changes as a commit in the local repository.
+
+```bash
+git commit -m "Add project README"
+```
+
+- Use a short, meaningful commit message.
+- Only staged changes are included in the commit.
+- A commit does not automatically push changes to a remote repository.
+
+## 13. `git log`
+
+Displays the repository's commit history.
+
+```bash
+git log
+git log --oneline
+git log --graph --oneline --all
+```
+
+- `git log` shows detailed commit information.
+- `git log --oneline` displays a compact history.
+- `git log --graph --oneline --all` helps visualize branch history.
+
+## 14. `git push`
+
+Sends local commits to a remote repository.
+
+```bash
+git push origin main
+git push -u origin feature-login
+```
+
+- `origin` is a common remote name.
+- `main` is the branch being pushed in the first example.
+- `-u` sets the upstream for a new branch, making future pushes easier.
+- The remote URL and authentication must be configured correctly.
+
+## 15. `git status`
+
+Shows the current branch and the state of files.
+
+```bash
+git status
+git status --short
+```
+
+Git can report files as:
+
+- **Untracked:** Git is not tracking the file yet.
+- **Modified:** A tracked file has changed.
+- **Staged:** Changes are selected for the next commit.
+- **Clean:** No pending changes are reported.
+
+
+## 16. `.gitignore`
+
+`.gitignore` is a file containing patterns for files and directories that Git should intentionally leave untracked.
+
+Example `.gitignore`:
+
+```gitignore
+.env
+node_modules/
+*.log
+dist/
+```
+
+## 17. `git branch`
+
+Lists, creates, or manages branches.
+
+```bash
+git branch
+git branch feature-login
+git branch -a
+```
+
+- `git branch` lists local branches.
+- `git branch feature-login` creates a branch.
+- `git branch -a` lists local and remote-tracking branches.
+
+Create and switch to a branch:
+
+```bash
+git switch -c feature-login
+```
+
+## 18. `git checkout`
+
+Can switch branches or check out a particular commit or file state.
+
+```bash
+git checkout main
+git checkout -b feature-login
+```
+
+- `git checkout main` switches to `main`.
+- `git checkout -b feature-login` creates and switches to a new branch.
+- Modern Git also provides `git switch` for branch switching and `git restore` for restoring files.
+
+
+## 19. `git merge`
+
+Integrates changes from another branch into the current branch.
+
+```bash
+git switch main
+git merge feature-login
+```
+
+- The current branch is the branch receiving the changes.
+- Git may perform a fast-forward merge or create a merge commit.
+- A merge may require conflict resolution.
+
+
+
 
