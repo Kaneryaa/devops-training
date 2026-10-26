@@ -43,3 +43,11 @@ Example: You have a project folder containing app.js. When you open and edit app
 - Workspace: The place where you work on your project.
 - Working directory: The folder containing your project files.
 - Working tree: The files you can see and modify in your Git project.
+
+## 5. Commit / Check-in
+
+A **commit** records a snapshot of the staged project state in the local repository.
+
+- A commit includes metadata such as author, message, timestamp, and parent commit references.
+- The commit message should briefly explain the change.
+- A commit does not automatically upload the change to a remote repository.
