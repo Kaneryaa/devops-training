@@ -109,6 +109,7 @@ git status
 git add staging.txt
 git status
 git commit -m "Add staging example"
+```
 
 ## 9. Local Repository vs. Remote Repository
 
@@ -125,3 +126,5 @@ git commit -m "Add staging example"
 - Is accessed through a remote name and URL, commonly `origin`.
 
 Examples:
+
+
