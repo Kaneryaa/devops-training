@@ -109,3 +109,19 @@ git status
 git add staging.txt
 git status
 git commit -m "Add staging example"
+
+## 9. Local Repository vs. Remote Repository
+
+### Local repository
+
+- Exists on your computer or server.
+- Stores local commits and repository history.
+- Allows you to create branches and inspect history without a network connection.
+
+### Remote repository
+
+- Is another repository, often hosted on GitLab or GitHub.
+- Lets developers exchange commits and collaborate.
+- Is accessed through a remote name and URL, commonly `origin`.
+
+Examples:
