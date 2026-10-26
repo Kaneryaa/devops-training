@@ -51,3 +51,16 @@ A **commit** records a snapshot of the staged project state in the local reposit
 - A commit includes metadata such as author, message, timestamp, and parent commit references.
 - The commit message should briefly explain the change.
 - A commit does not automatically upload the change to a remote repository.
+
+## 5. Version / Version ID / Commit ID
+
+- **Version:** An informal term for a particular state or release of a project.
+- **Commit ID:** The identifier for a particular Git commit.
+- **Version ID:** A general phrase that may mean a commit ID, tag, or release identifier, depending on the context.
+
+View commit IDs:
+
+```bash
+git log --oneline
+git rev-parse HEAD
+```
