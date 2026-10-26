@@ -296,4 +296,140 @@ git commit
 
 Use the last command when Git indicates that a merge commit still needs to be completed.
 
+## 21. `git stash`
+
+Temporarily stores changes so you can switch tasks without committing them first.
+
+```bash
+git stash push -m "Temporary changes"
+git stash list
+git stash apply
+git stash pop
+```
+
+- `git stash list` displays saved stashes.
+- `git stash apply` reapplies changes and keeps the stash entry.
+- `git stash pop` reapplies changes and normally removes the entry if successful.
+
+## 22. `git revert`
+
+Creates a new commit that reverses the effect of an earlier commit.
+
+```bash
+git log --oneline
+git revert <commit-id>
+```
+
+- Replace `<commit-id>` with a real commit ID.
+- Revert is useful for undoing a change while preserving the existing history.
+- Reverting a merge commit requires choosing the correct mainline parent.
+
+## 23. `git rm` (File Removal)
+
+The standard Git command for removing a tracked file is `git rm`, not `git remove`.
+
+```bash
+git rm old-file.txt
+git commit -m "Remove obsolete file"
+```
+
+To stop tracking a file but keep it on the local disk:
+
+```bash
+git rm --cached config.txt
+```
+
+- `git rm` removes the file from the working tree and stages its removal.
+- `git rm --cached` removes the file from Git's index while keeping the local file.
+
+## 24. `git fetch`
+
+Downloads updates from a remote repository and updates remote-tracking references.
+
+```bash
+git fetch origin
+git branch -r
+```
+
+- Fetch does not automatically integrate the downloaded changes into the current branch.
+- You can inspect remote updates before deciding to merge or rebase.
+
+## 25. `git diff`
+
+Shows differences between file states.
+
+```bash
+git diff
+git diff --staged
+git diff HEAD
+```
+
+- `git diff` compares the working tree with the staging area.
+- `git diff --staged` compares staged changes with the current commit.
+- `git diff HEAD` compares working-tree changes with the current commit.
+
+## 26. `git rebase`
+
+Replays commits onto a new base, creating new commit identities for the replayed commits.
+
+```bash
+git fetch origin
+git switch feature-login
+git rebase origin/main
+```
+
+If a conflict occurs:
+
+```bash
+git add <resolved-file>
+git rebase --continue
+```
+
+To cancel the rebase:
+
+```bash
+git rebase --abort
+```
+
+- Rebase can make a branch's history appear linear.
+- Avoid rebasing shared commits unless the team agrees to that workflow, because rebase rewrites history.
+
+## 27. `git pull`
+
+Fetches remote changes and integrates them into the current branch. Depending on configuration, the integration may use merge or rebase.
+
+```bash
+git pull origin main
+```
+
+- Run it on the branch you intend to update.
+- If local and remote histories have diverged, Git may require you to choose or configure a reconciliation strategy.
+
+## 28. `git clone`
+
+Creates a local copy of an existing repository.
+
+```bash
+git clone https://gitlab.com/group/project.git
+cd project
+```
+
+- Cloning downloads repository data and checks out a working tree.
+- The remote is normally configured with the name `origin`.
+- Replace the example URL with the actual repository URL.
+
+## 29. `git remote`
+
+Displays and manages remote repository references.
+
+```bash
+git remote -v
+git remote add origin <repository-url>
+git remote set-url origin <repository-url>
+```
+
+- `git remote -v` displays remote names and URLs.
+- `git remote add` adds a remote.
+- `git remote set-url` changes an existing remote's URL.
+- If `origin` already exists, update it instead of adding it again.
 
