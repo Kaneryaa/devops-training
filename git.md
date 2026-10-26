@@ -266,6 +266,34 @@ git merge feature-login
 - Git may perform a fast-forward merge or create a merge commit.
 - A merge may require conflict resolution.
 
+## 20. Git Merge Conflict
 
+A merge conflict occurs when Git cannot automatically reconcile changes, such as when two branches edit the same line differently.
+
+Example conflict markers:
+
+```text
+<<<<<<< HEAD
+Content from the current branch
+=======
+Content from the incoming branch
+>>>>>>> feature-login
+```
+
+Resolve a conflict:
+
+1. Open the conflicted file.
+2. Choose or combine the intended content.
+3. Remove the conflict markers.
+4. Stage the resolved file.
+5. Complete the merge.
+
+```bash
+git add <resolved-file>
+git status
+git commit
+```
+
+Use the last command when Git indicates that a merge commit still needs to be completed.
 
 
