@@ -8,3 +8,6 @@ Source Code Management (SCM) is the practice of tracking and managing changes to
 - It helps teams recover previous versions when necessary.
 - It supports controlled software development and release workflows.
 
+## 2. What Is Version Control?
+
+A Version Control System (VCS) records changes to files so that earlier versions can be inspected or recovered.
