@@ -27,3 +27,13 @@ A Version Control System (VCS) records changes to files so that earlier versions
    - Changes can later be shared with other repositories.
    - Example: Git.
 <img width="907" height="510" alt="Screenshot 2026-10-26 at 8 20 55 PM" src="https://github.com/user-attachments/assets/d9e558c2-e505-4ba8-9bfe-87216da2ab12" />
+
+
+## 3. Repository
+
+A **repository** is where Git stores project history and the metadata it needs to track changes.
+
+- **Local repository:** The repository on your computer or server.
+- **Remote repository:** Another repository used to exchange changes, often hosted on GitLab or GitHub.
+- A repository contains commit history, branches, tags, and Git metadata.
+
