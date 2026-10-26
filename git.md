@@ -13,8 +13,8 @@ Source Code Management (SCM) is the practice of tracking and managing changes to
 A Version Control System (VCS) records changes to files so that earlier versions can be inspected or recovered.
 
 1. **CVCS — Centralized Version Control System**
-   - Uses a central server to store the shared version history.
-   - Developers check out files and submit changes to the central server.
+   - A central server is one main computer that stores the project's files and records all the changes made to them over time.
+   - Developers download the project files from the main server, make changes on their computers, and send those changes back to the server.
    - Collaboration generally depends on access to that server.
    - Example: traditional Subversion (SVN) workflows.
 
@@ -26,3 +26,4 @@ A Version Control System (VCS) records changes to files so that earlier versions
    - Developers can commit changes locally and work without a continuous connection to the remote server.
    - Changes can later be shared with other repositories.
    - Example: Git.
+<img width="907" height="510" alt="Screenshot 2026-10-26 at 8 20 55 PM" src="https://github.com/user-attachments/assets/d9e558c2-e505-4ba8-9bfe-87216da2ab12" />
