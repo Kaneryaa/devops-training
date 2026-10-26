@@ -11,3 +11,15 @@ Source Code Management (SCM) is the practice of tracking and managing changes to
 ## 2. What Is Version Control?
 
 A Version Control System (VCS) records changes to files so that earlier versions can be inspected or recovered.
+
+1. **CVCS — Centralized Version Control System**
+   - Uses a central server to store the shared version history.
+   - Developers check out files and submit changes to the central server.
+   - Collaboration generally depends on access to that server.
+   - Example: traditional Subversion (SVN) workflows.
+
+2. **DVCS — Distributed Version Control System**
+   - Each clone normally contains the repository history, not just a working copy of files.
+   - Developers can commit changes locally and work without a continuous connection to the remote server.
+   - Changes can later be shared with other repositories.
+   - Example: Git.
