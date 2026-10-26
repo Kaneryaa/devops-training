@@ -37,3 +37,9 @@ A **repository** is where Git stores project history and the metadata it needs t
 - **Remote repository:** Another repository used to exchange changes, often hosted on GitLab or GitHub.
 - A repository contains commit history, branches, tags, and Git metadata.
 
+## 4. Workspace / Working Directory / Working Tree
+** All three terms generally refer to the place where you work on your project files.
+Example: You have a project folder containing app.js. When you open and edit app.js, you are working in your working directory or working tree.
+- **Workspace: The place where you work on your project.
+- **Working directory: The folder containing your project files.
+- **Working tree: The files you can see and modify in your Git project.
