@@ -54,6 +54,9 @@ A Docker image is a read-only template used to create containers.
 - It contains configuration instructions.
 - Multiple containers can be created from the same image.
 
+<img width="1009" height="527" alt="image" src="https://github.com/user-attachments/assets/15573fa4-a86b-45ed-8c38-65c20a11e657" />
+
+
 Example:
 
 ```bash
