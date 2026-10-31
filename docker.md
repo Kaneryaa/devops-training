@@ -18,7 +18,9 @@ A container is a lightweight, isolated environment used to run an application.
 - Each container has its own isolated processes and filesystem view.
 - Containers start quickly.
 - Containers use fewer resources than traditional virtual machines.
-![Uploading image.png…]()
+
+<img width="802" height="534" alt="image" src="https://github.com/user-attachments/assets/23ec2f66-6dfc-43f9-a4bc-f49f5586e5c7" />
+
 
 
 ## 3. What Are Docker Features?
