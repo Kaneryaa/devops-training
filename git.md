@@ -301,6 +301,7 @@ Use the last command when Git indicates that a merge commit still needs to be co
 Temporarily stores changes so you can switch tasks without committing them first.
 
 ```bash
+git stash push -u -m "Temporary login page"
 git stash push -m "Temporary changes"
 git stash list
 git stash apply
