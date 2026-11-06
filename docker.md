@@ -1307,3 +1307,643 @@ After finding an image, download it using:
 docker pull nginx
 ```
 
+## 42. What Is `docker stop`?
+
+`docker stop` gracefully stops one or more running containers.
+
+- Sends `SIGTERM` to the container's main process.
+- Waits for a grace period (10 seconds by default on Linux).
+- Sends `SIGKILL` if the process does not stop in time.
+- The container is stopped, but it is not deleted.
+
+**Stop a container:**
+
+```bash
+docker stop my-container
+```
+
+**Stop multiple containers:**
+
+```bash
+docker stop container1 container2
+```
+
+**Set a custom timeout:**
+
+```bash
+docker stop --time 20 my-container
+```
+
+## 43. What Is `docker start`?
+
+`docker start` starts an existing stopped container.
+
+- It does not create a new container.
+- It uses the container's existing configuration and writable layer.
+- The container keeps its previous data unless that data was stored outside the container and removed separately.
+
+**Start a container:**
+
+```bash
+docker start my-container
+```
+
+**Start multiple containers:**
+
+```bash
+docker start container1 container2
+```
+
+**Start and attach to the container's standard input/output:**
+
+```bash
+docker start --attach my-container
+```
+
+## 44. What Is `docker restart`?
+
+`docker restart` stops and then starts an existing container.
+
+- Useful after changing application configuration or when an application needs a restart.
+- The container is not recreated.
+- Its writable layer is retained.
+
+**Restart a container:**
+
+```bash
+docker restart my-container
+```
+
+**Restart with a custom stop timeout:**
+
+```bash
+docker restart --time 20 my-container
+```
+
+## 45. What Is `docker exec`?
+
+`docker exec` runs a new command inside an already-running container.
+
+- It does not create another container.
+- The command runs in the context of the existing container.
+- Commonly used for troubleshooting and checking files, processes, or application settings.
+
+**Open an interactive Bash shell:**
+
+```bash
+docker exec -it my-container bash
+```
+
+**If Bash is not installed, use `sh`:**
+
+```bash
+docker exec -it my-container sh
+```
+
+**Run a one-time command:**
+
+```bash
+docker exec my-container ls -l /app
+```
+
+**Run a command as root:**
+
+```bash
+docker exec -u root -it my-container sh
+```
+
+## 46. What Is `docker cp`?
+
+`docker cp` copies files or directories between the local filesystem and a container.
+
+- Copy from host to container.
+- Copy from container to host.
+- The container does not need to be running for ordinary file copying.
+
+**Copy a file from the host into a container:**
+
+```bash
+docker cp ./index.html my-container:/usr/share/nginx/html/index.html
+```
+
+**Copy a file from a container to the host:**
+
+```bash
+docker cp my-container:/etc/nginx/nginx.conf ./nginx.conf
+```
+
+**Copy a directory into a container:**
+
+```bash
+docker cp ./config my-container:/app/
+```
+
+## 47. What Is `docker events`?
+
+`docker events` displays real-time events reported by the Docker daemon.
+
+- Helps troubleshoot container and image lifecycle activity.
+- Events can include container creation, start, stop, and deletion.
+- Also reports events involving networks, volumes, and images.
+
+**Watch Docker events:**
+
+```bash
+docker events
+```
+
+**Show events from the last 10 minutes:**
+
+```bash
+docker events --since 10m
+```
+
+**Filter events for a specific container:**
+
+```bash
+docker events --filter container=my-container
+```
+
+Press `Ctrl+C` to stop watching.
+
+## 48. What Is `docker pause`?
+
+`docker pause` suspends all processes in one or more containers.
+
+- On Linux, Docker uses the freezer cgroup mechanism where supported.
+- The container remains running from Docker's lifecycle perspective, but its processes are suspended.
+- It is useful for temporarily freezing container activity.
+
+**Pause a container:**
+
+```bash
+docker pause my-container
+```
+
+## 49. What Is `docker unpause`?
+
+`docker unpause` resumes processes in a paused container.
+
+- It reverses the effect of `docker pause`.
+- It does not restart or recreate the container.
+
+**Unpause a container:**
+
+```bash
+docker unpause my-container
+```
+
+## 50. What Is `docker update`?
+
+`docker update` changes resource limits or restart-policy settings on an existing container.
+
+- It can update CPU and memory limits.
+- It can update the restart policy.
+- It does not rebuild the image or recreate the container.
+
+**Limit memory to 512 MB:**
+
+```bash
+docker update --memory 512m my-container
+```
+
+**Limit CPU quota to approximately one CPU:**
+
+```bash
+docker update --cpus 1.0 my-container
+```
+
+**Change the restart policy:**
+
+```bash
+docker update --restart unless-stopped my-container
+```
+
+## 51. What Is `docker commit`?
+
+`docker commit` creates a new image from a container's current filesystem changes.
+
+- Useful for capturing a manually modified container for testing or troubleshooting.
+- It does not include data stored in mounted volumes.
+- It is generally better to use a Dockerfile for repeatable, version-controlled image builds.
+
+**Create an image from a container:**
+
+```bash
+docker commit my-container my-custom-image:v1
+```
+
+**Add a commit message:**
+
+```bash
+docker commit -m "Added application configuration" my-container my-custom-image:v1
+```
+
+## 52. What Is `docker network`?
+
+`docker network` manages Docker networks, which allow containers to communicate with each other and, depending on the network configuration, with external systems.
+
+- The default network driver for a user-created bridge network is `bridge`.
+- User-defined bridge networks provide automatic DNS resolution between containers by name.
+- Network isolation and connectivity depend on the selected driver and configuration.
+
+**List networks:**
+
+```bash
+docker network ls
+```
+
+**Create a bridge network:**
+
+```bash
+docker network create my-network
+```
+
+**Run a container on that network:**
+
+```bash
+docker run -d --name app1 --network my-network nginx
+```
+
+**Connect an existing container to a network:**
+
+```bash
+docker network connect my-network my-container
+```
+
+**Disconnect a container from a network:**
+
+```bash
+docker network disconnect my-network my-container
+```
+
+**Inspect a network:**
+
+```bash
+docker network inspect my-network
+```
+
+**Remove a network:**
+
+```bash
+docker network rm my-network
+```
+
+## 53. What Is `docker volume`?
+
+`docker volume` manages persistent data storage used by containers.
+
+- Volumes are managed by Docker.
+- Data in a volume can remain available after a container is removed.
+- Volumes are commonly used for databases and application data.
+- A volume is different from a bind mount, which maps a host path directly.
+
+**List volumes:**
+
+```bash
+docker volume ls
+```
+
+**Create a volume:**
+
+```bash
+docker volume create app-data
+```
+
+**Use a volume in a container:**
+
+```bash
+docker run -d --name database \
+  -v app-data:/var/lib/mysql \
+  mysql:8
+```
+
+**Inspect a volume:**
+
+```bash
+docker volume inspect app-data
+```
+
+**Remove a volume:**
+
+```bash
+docker volume rm app-data
+```
+
+**Remove unused volumes:**
+
+```bash
+docker volume prune
+```
+
+> Warning: Removing a volume can permanently delete its data. Check which containers use it before removal.
+
+## 54. What Is `docker port`?
+
+`docker port` displays the port mappings configured for a container.
+
+- Shows which host ports are mapped to container ports.
+- Helps verify published ports.
+- It does not create or change a port mapping.
+
+**Show all published ports:**
+
+```bash
+docker port my-container
+```
+
+**Show the host mapping for container port 80:**
+
+```bash
+docker port my-container 80
+```
+
+**Example:**
+
+If a container was started with `-p 8080:80`, the application can be reached through host port `8080`, while it listens on port `80` inside the container.
+
+```bash
+docker run -d --name web -p 8080:80 nginx
+```
+
+## 55. What Is `docker tag`?
+
+`docker tag` creates another name or tag that refers to an existing local image.
+
+- Useful for preparing an image for a registry.
+- It does not rebuild or copy the image layers.
+- A tag commonly identifies an image version.
+
+**Tag an image:**
+
+```bash
+docker tag nginx:latest my-nginx:v1
+```
+
+**Tag an image for Docker Hub:**
+
+```bash
+docker tag my-app:v1 username/my-app:v1
+```
+
+## 56. What Is `docker kill`?
+
+`docker kill` sends a signal to the main process of a running container.
+
+- By default, it sends `SIGKILL`.
+- Unlike `docker stop`, it does not wait for a graceful shutdown.
+- Use it when a container must be terminated immediately or when a specific signal is required.
+
+**Forcefully terminate a container:**
+
+```bash
+docker kill my-container
+```
+
+**Send a different signal:**
+
+```bash
+docker kill --signal=SIGTERM my-container
+```
+
+## 57. What Is `docker login`?
+
+`docker login` authenticates the Docker CLI with a container registry.
+
+- Commonly used with Docker Hub and private registries.
+- Authentication is needed for many private image pulls and image pushes.
+- Use a personal access token where supported rather than placing a password directly in a command.
+
+**Log in to Docker Hub:**
+
+```bash
+docker login
+```
+
+**Log in to a specific registry:**
+
+```bash
+docker login registry.example.com
+```
+
+**Log out:**
+
+```bash
+docker logout
+```
+
+## 58. What Is `docker diff`?
+
+`docker diff` shows filesystem changes made inside a container compared with the image it was created from.
+
+It reports three common change types:
+
+- `A` – Added file or directory.
+- `C` – Changed file or directory.
+- `D` – Deleted file or directory.
+
+**Check container filesystem changes:**
+
+```bash
+docker diff my-container
+```
+
+This command is useful when investigating manual changes made inside a container.
+
+## 59. What Is `docker system`?
+
+`docker system` provides commands to inspect Docker resource usage and remove unused resources.
+
+**Show Docker disk usage:**
+
+```bash
+docker system df
+```
+
+**Show detailed disk usage:**
+
+```bash
+docker system df -v
+```
+
+**Remove unused containers, networks, dangling images, and build cache:**
+
+```bash
+docker system prune
+```
+
+**Also remove unused images that are not just dangling:**
+
+```bash
+docker system prune -a
+```
+
+> Warning: Prune commands delete resources. Review the prompt and understand what will be removed before confirming. Volumes are not removed by the ordinary `docker system prune` command; adding `--volumes` can remove unused volumes and their data.
+
+## 60. What Is Docker Compose?
+
+Docker Compose is a tool for defining and running multi-container applications using a YAML configuration file, usually named `compose.yaml` or `docker-compose.yml`.
+
+- Defines services, networks, and volumes.
+- Helps run an application stack with one command.
+- Makes local development and repeatable deployments easier.
+- Modern Docker installations use the `docker compose` command with a space.
+
+**Example `compose.yaml`:**
+
+```yaml
+services:
+  web:
+    image: nginx:latest
+    ports:
+      - "8080:80"
+
+  redis:
+    image: redis:7
+```
+
+**Start services in the background:**
+
+```bash
+docker compose up -d
+```
+
+**List Compose services and containers:**
+
+```bash
+docker compose ps
+```
+
+**View logs:**
+
+```bash
+docker compose logs
+```
+
+**Follow logs:**
+
+```bash
+docker compose logs -f
+```
+
+**Stop and remove the Compose application containers and networks:**
+
+```bash
+docker compose down
+```
+
+**Build or rebuild services:**
+
+```bash
+docker compose build
+```
+
+> `docker compose down -v` also removes named and anonymous volumes declared by the Compose project. Use it carefully because volume data may be lost.
+
+## 61. What Is `docker build`?
+
+`docker build` builds a Docker image from a Dockerfile and a build context.
+
+- A Dockerfile contains instructions for building an image.
+- The build context is the set of files available to the build.
+- The resulting image can be used to create containers.
+
+**Example Dockerfile:**
+
+```dockerfile
+FROM nginx:alpine
+COPY index.html /usr/share/nginx/html/index.html
+```
+
+**Build an image from the current directory:**
+
+```bash
+docker build -t my-nginx:v1 .
+```
+
+**Use a Dockerfile with a different name:**
+
+```bash
+docker build -f Dockerfile.dev -t my-app:dev .
+```
+
+**Build without using the build cache:**
+
+```bash
+docker build --no-cache -t my-app:v1 .
+```
+
+## 62. What Is `docker save`?
+
+`docker save` exports one or more Docker images, including their layers and image metadata, into a tar archive.
+
+- Useful for transferring images between systems without pushing them to a registry.
+- The archive can later be loaded using `docker load`.
+- It saves images, not a running container's complete runtime state.
+
+**Save an image:**
+
+```bash
+docker save -o nginx-image.tar nginx:latest
+```
+
+**Save multiple images:**
+
+```bash
+docker save -o app-images.tar nginx:latest redis:7
+```
+
+## 63. What Is `docker load`?
+
+`docker load` loads images and tags from an archive created by `docker save`.
+
+**Load an image archive:**
+
+```bash
+docker load -i nginx-image.tar
+```
+
+**Verify the loaded image:**
+
+```bash
+docker images
+```
+
+## 64. What Is `docker import`?
+
+`docker import` creates a Docker image from a filesystem archive.
+
+- Commonly used with an archive created by `docker export`.
+- It imports a flattened filesystem.
+- It does not preserve the original image's layer history or full image build metadata.
+
+**Import a filesystem archive:**
+
+```bash
+docker import rootfs.tar my-imported-image:v1
+```
+
+## 65. What Is `docker export`?
+
+`docker export` exports a container's filesystem as a tar archive.
+
+- Exports the container filesystem, not the image's full layer history.
+- Does not export the contents of mounted volumes.
+- The archive can be used with `docker import`.
+
+**Export a container filesystem:**
+
+```bash
+docker export my-container -o container-filesystem.tar
+```
+
+## 66. What Is Docker Swarm?
+
+Docker Swarm is Docker's native container orchestration mode for managing a cluster of Docker Engines.
+
+- A Swarm cluster contains manager and worker nodes.
+- Managers maintain cluster state and schedule services.
+- Worker nodes run tasks assigned by managers.
+- Services define the desired state, such as the number of replicas.
+- Swarm supports service scaling, rolling updates, and service discovery.
+
