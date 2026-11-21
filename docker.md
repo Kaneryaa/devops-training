@@ -1909,35 +1909,8 @@ docker load -i nginx-image.tar
 docker images
 ```
 
-## 64. What Is `docker import`?
 
-`docker import` creates a Docker image from a filesystem archive.
-
-- Commonly used with an archive created by `docker export`.
-- It imports a flattened filesystem.
-- It does not preserve the original image's layer history or full image build metadata.
-
-**Import a filesystem archive:**
-
-```bash
-docker import rootfs.tar my-imported-image:v1
-```
-
-## 65. What Is `docker export`?
-
-`docker export` exports a container's filesystem as a tar archive.
-
-- Exports the container filesystem, not the image's full layer history.
-- Does not export the contents of mounted volumes.
-- The archive can be used with `docker import`.
-
-**Export a container filesystem:**
-
-```bash
-docker export my-container -o container-filesystem.tar
-```
-
-## 66. What Is Docker Swarm?
+## 64. What Is Docker Swarm?
 
 Docker Swarm is Docker's native container orchestration mode for managing a cluster of Docker Engines.
 
