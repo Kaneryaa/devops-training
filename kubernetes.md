@@ -183,3 +183,357 @@ When you deploy a Pod:
 5. Kube-proxy handles Service networking rules when required.
 
 This is how Kubernetes components work together to run your applications.
+
+
+
+# Kubernetes Documentation (Continued)
+
+## 7. What Is Kubelet?
+
+Kubelet is a Kubernetes node agent that runs on every worker node. It communicates with the Kubernetes API Server and ensures that the assigned Pods and their containers are running properly.
+
+- It runs on every worker node.
+- It communicates with the Kubernetes API Server.
+- It receives Pod specifications assigned to its node.
+- It ensures that containers are running according to the Pod specification.
+- It monitors the health of Pods and containers.
+- It reports node and Pod status to the API Server.
+- It works with the container runtime to manage containers.
+
+**Example:**
+
+Suppose Kubernetes schedules a Pod on Worker Node 1.
+
+1. The API Server stores the Pod information.
+2. Kubelet on Worker Node 1 receives the Pod specification.
+3. Kubelet instructs the container runtime to start the container.
+4. Kubelet monitors the Pod and reports its status.
+
+## 8. What Is a Pod?
+
+A Pod is the smallest deployable unit in Kubernetes. It represents one or more containers that share network resources and can share storage volumes.
+
+- It is the smallest deployable unit in Kubernetes.
+- It can contain one or multiple containers.
+- Containers inside the same Pod share the same network namespace.
+- Containers inside a Pod can communicate using localhost.
+- Containers can share storage volumes.
+- Every Pod receives its own IP address.
+- Pods are generally ephemeral and can be replaced when they fail.
+
+**Example:**
+
+Create a Pod using the Nginx image.
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod
+spec:
+  containers:
+    - name: nginx
+      image: nginx:latest
+      ports:
+        - containerPort: 80
+```
+
+Create the Pod:
+
+```bash
+kubectl apply -f pod.yaml
+```
+
+Check the Pod:
+
+```bash
+kubectl get pods
+```
+
+Describe the Pod:
+
+```bash
+kubectl describe pod nginx-pod
+```
+
+Delete the Pod:
+
+```bash
+kubectl delete pod nginx-pod
+```
+
+## 9. What Is a ReplicaSet?
+
+A ReplicaSet is a Kubernetes resource used to maintain a specified number of identical Pod replicas running in a cluster.
+
+- It maintains the desired number of Pod replicas.
+- It automatically creates new Pods when existing Pods fail or are deleted.
+- It deletes extra Pods when the number of replicas exceeds the desired count.
+- It uses label selectors to identify and manage Pods.
+- It helps maintain application availability.
+- It is generally managed through Deployments rather than created directly.
+
+**Example:**
+
+Suppose you want to run three replicas of an Nginx application.
+
+```yaml
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: nginx-replicaset
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:latest
+          ports:
+            - containerPort: 80
+```
+
+Create the ReplicaSet:
+
+```bash
+kubectl apply -f replicaset.yaml
+```
+
+Check the ReplicaSet:
+
+```bash
+kubectl get replicasets
+```
+
+Check the Pods:
+
+```bash
+kubectl get pods
+```
+
+Scale the ReplicaSet:
+
+```bash
+kubectl scale replicaset nginx-replicaset --replicas=5
+```
+
+## 10. What Is a ReplicationController?
+
+ReplicationController is a Kubernetes resource that ensures a specified number of Pod replicas are running at all times.
+
+- It maintains the desired number of Pod replicas.
+- It creates new Pods when existing Pods fail.
+- It deletes extra Pods when more than the desired number are running.
+- It uses label selectors to manage Pods.
+- It helps maintain application availability.
+- It is an older Kubernetes resource.
+- ReplicaSet is its more advanced successor and supports set-based label selectors.
+
+**Example:**
+
+Create a ReplicationController with three Nginx Pods.
+
+```yaml
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: nginx-rc
+spec:
+  replicas: 3
+  selector:
+    app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:latest
+          ports:
+            - containerPort: 80
+```
+
+Create the ReplicationController:
+
+```bash
+kubectl apply -f replicationcontroller.yaml
+```
+
+Check the ReplicationController:
+
+```bash
+kubectl get replicationcontrollers
+```
+
+Scale the ReplicationController:
+
+```bash
+kubectl scale replicationcontroller nginx-rc --replicas=5
+```
+
+**Note:** ReplicationController is an older resource. In modern Kubernetes applications, Deployments and ReplicaSets are preferred.
+
+## 11. What Is a Deployment?
+
+A Deployment is a Kubernetes resource used to manage stateless application workloads and control the lifecycle of Pods through ReplicaSets.
+
+- It manages ReplicaSets automatically.
+- It maintains the desired number of Pod replicas.
+- It supports rolling updates.
+- It supports application rollbacks.
+- It allows scaling of applications.
+- It automatically replaces failed Pods through its ReplicaSets.
+- It helps deploy new application versions with minimal downtime.
+- It is commonly used for stateless applications such as Node.js, Java, and Nginx services.
+
+**Example:**
+
+Create a Deployment with three Nginx replicas.
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:1.27
+          ports:
+            - containerPort: 80
+```
+
+Create the Deployment:
+
+```bash
+kubectl apply -f deployment.yaml
+```
+
+Check the Deployment:
+
+```bash
+kubectl get deployments
+```
+
+Check the ReplicaSets:
+
+```bash
+kubectl get replicasets
+```
+
+Check the Pods:
+
+```bash
+kubectl get pods
+```
+
+Scale the Deployment:
+
+```bash
+kubectl scale deployment nginx-deployment --replicas=5
+```
+
+Update the application image:
+
+```bash
+kubectl set image deployment/nginx-deployment nginx=nginx:1.28
+```
+
+Check rollout status:
+
+```bash
+kubectl rollout status deployment/nginx-deployment
+```
+
+Rollback to the previous version:
+
+```bash
+kubectl rollout undo deployment/nginx-deployment
+```
+
+## 12. What Is a DaemonSet?
+
+A DaemonSet is a Kubernetes resource that ensures a copy of a specific Pod runs on every eligible node in the cluster.
+
+- It automatically creates Pods on eligible worker nodes.
+- It ensures that each eligible node runs the required Pod.
+- It automatically creates Pods when new eligible nodes join the cluster.
+- It removes the corresponding Pods when nodes are no longer eligible.
+- It is commonly used for monitoring, logging, and networking agents.
+- It is useful for node-level services.
+- It can use node selectors, affinity, and tolerations to control where Pods run.
+
+**Example:**
+
+Suppose you have three worker nodes and want to run a monitoring agent on every worker node.
+
+A DaemonSet ensures that one monitoring agent Pod runs on each eligible worker node.
+
+```yaml
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: monitoring-agent
+spec:
+  selector:
+    matchLabels:
+      app: monitoring-agent
+  template:
+    metadata:
+      labels:
+        app: monitoring-agent
+    spec:
+      containers:
+        - name: monitoring-agent
+          image: busybox:1.36
+          command: ["sh", "-c", "while true; do sleep 3600; done"]
+```
+
+Create the DaemonSet:
+
+```bash
+kubectl apply -f daemonset.yaml
+```
+
+Check the DaemonSet:
+
+```bash
+kubectl get daemonsets
+```
+
+Check the Pods:
+
+```bash
+kubectl get pods -o wide
+```
+
+Delete the DaemonSet:
+
+```bash
+kubectl delete daemonset monitoring-agent
+```
+
+**Real-world use cases:**
+
+- Prometheus Node Exporter for node monitoring.
+- Fluent Bit for collecting container logs.
+- CNI networking agents for node-level networking.
+- Security agents for monitoring node activity.
+
+**Note:** A DaemonSet normally runs one Pod per eligible node, not necessarily every node. Node selectors, affinity, and taints can restrict placement.
